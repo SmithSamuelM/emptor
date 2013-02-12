@@ -1,6 +1,8 @@
 """ Temporarily redirect stdout stderr with context manager
     
-    
+See LICENSE.txt for Licensing details
+Copyright (c) <2013> <Samuel M. Smith>
+
 """
 
 

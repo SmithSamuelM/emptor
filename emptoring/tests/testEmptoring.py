@@ -1,5 +1,11 @@
 #!/usr/local/bin/python2.7
-""" Unit Tests """
+""" Unit Tests
+
+
+See LICENSE.txt for Licensing details
+Copyright (c) <2013> <Samuel M. Smith>
+
+"""
 import sys
 import os
 

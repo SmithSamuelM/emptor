@@ -1,3 +1,12 @@
+"""
+
+
+See LICENSE.txt for Licensing details
+Copyright (c) <2013> <Samuel M. Smith>
+
+"""
+
+
 import sys
 py = sys.version_info
 py3k = py >= (3,0,0)

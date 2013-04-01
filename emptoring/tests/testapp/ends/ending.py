@@ -1,7 +1,7 @@
 """ Rest endpoints
     
 """
-import json
+import simplejson as json
 
 import bottle
 import testapp

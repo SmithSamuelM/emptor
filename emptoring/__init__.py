@@ -328,7 +328,7 @@ class Emptor(object):
             headers=None, hrm='', hct='', hscs=None, hats=None,
             creds=None, cookies=None, xmlns=None, mold='', mdp='',
             preloads=None, qkeys=None, pkeys=None, bkeys=None,
-            pkcp='', cacp=False,  debug=False, red=True ):
+            pkcp='', cacp=None,  red=None, debug=None,  ):
         """ Initialize service instance 
             Parameters:
             
@@ -355,7 +355,7 @@ class Emptor(object):
               xmlns = list of xml namespace urls to strip
               mdp = mold directory path
               pkcp = private key and cert path
-              cacp = cert auth path
+              cacp = cert auth path or False if ignore
               debug = create trace
               red = allow redirects
               
@@ -394,8 +394,8 @@ class Emptor(object):
         if xmlns is None:
             xmlns = []
         self.xmlns = list(xmlns) or list(self.Xmlns)
-        self.debug = debug or self.Debug
-        self.red = red or self.Red
+        self.red = self.Red if red is None else True if red else False
+        self.debug = self.Debug if debug is None else True if debug else False
         
         #other
         self.response = None
@@ -439,7 +439,7 @@ class Emptor(object):
         self.bkeys = list(bkeys) #make local copy        
         
         self.pkcp = pkcp or self.Pkcp
-        self.cacp = cacp or self.Cacp
+        self.cacp = self.Cacp if cacp is None else cacp
         
         # optional, use parameter if not empty else use class attribute
         self.mdp = (mdp or self.Mdp)

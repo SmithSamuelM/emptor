@@ -3,7 +3,7 @@
     Bottle 'error' methods do not automatically detect json when returning a dict
     so must manually jsonify
 """
-import json
+import simplejson as json
 import bottle
 import testapp
 

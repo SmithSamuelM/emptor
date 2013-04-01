@@ -867,7 +867,8 @@ class Emptorage(object):
     def _rosterate(self, entry, scheme='', port='', domain='', prefix='',
                    suffix='', preloads=None, headers=None, 
                    hrm='', hct='',hscs=None, hats=None,
-                   creds=None, xmlns=None, mdp='', pkcp='', cacp=False, debug=False):
+                   creds=None, xmlns=None, mdp='', pkcp='', cacp=False,
+                   debug=False,  red=True):
         """ Generate emptor init args for the given entry and init parameters. 
             Parameters
                 scheme = Server URL scheme
@@ -887,6 +888,7 @@ class Emptorage(object):
                 pkcp = private key cert path
                 cacp = certificate authority certs path
                 debug = create and save httplib trace
+                red = allow redirects
                 
             Special processing of parameters to this function
                 The final instance attributes value will be.
@@ -922,6 +924,7 @@ class Emptorage(object):
                 'pkcp' optional
                 'cacp' optional
                 'debug' optional
+                'red' optional
                 
                 
                     
@@ -944,6 +947,7 @@ class Emptorage(object):
         ia['pkcp'] = entry.get('pkcp', '') or pkcp
         ia['cacp'] = entry.get('cacp', False) or cacp
         ia['debug'] = entry.get('debug', False) or debug
+        ia['red'] = entry.get('red', False) or red
         #service specific
         ia['suffix'] = entry.get('suffix', '')
         ia['mold'] = entry.get('mold', '')  

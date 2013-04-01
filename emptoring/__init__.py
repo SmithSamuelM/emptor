@@ -15,7 +15,7 @@ import sys
 import os
 from os import path
 import imp
-import json
+import simplejson as json
 import re
 import urllib
 import lxml.etree
@@ -23,11 +23,11 @@ import lxml.etree
 import cStringIO
 
 if sys.version_info[1] < 7: #python 2.6 or earlier
-    from  ordereddict import OrderedDict as ODict
+    from ordereddict import OrderedDict as ODict
 else:
     from collections import OrderedDict as  ODict
 
-import ssl #interposed version
+import ssl
 
 import requests 
 import pystache
@@ -215,6 +215,7 @@ class Emptor(object):
             Pkcp = client private key and cert path
             Cacp =  certificate authority or host server certs path
             Debug = generate trace if True
+            Red = allow redirects if True
             
         
         Instance attributes:
@@ -245,6 +246,7 @@ class Emptor(object):
             content = content returned from last request
             trace = http trace of latest request-response
             reaped = reaped content as determined by reaper response content-type
+            red = allow redirects if true
             
         
         prefix and suffix detail
@@ -320,12 +322,13 @@ class Emptor(object):
     Pkcp = '' # client private key and cert path
     Cacp = False # certificate authority or server certs path. Don't verify if False
     Debug = False # create trace on requests
+    Red = True
     
     def __init__(self, scheme='', domain='', port='', prefix='', suffix='',
             headers=None, hrm='', hct='', hscs=None, hats=None,
             creds=None, cookies=None, xmlns=None, mold='', mdp='',
             preloads=None, qkeys=None, pkeys=None, bkeys=None,
-            pkcp='', cacp=False,  debug=False ):
+            pkcp='', cacp=False,  debug=False, red=True ):
         """ Initialize service instance 
             Parameters:
             
@@ -354,6 +357,7 @@ class Emptor(object):
               pkcp = private key and cert path
               cacp = cert auth path
               debug = create trace
+              red = allow redirects
               
         """
         # optional parameters, 
@@ -391,6 +395,7 @@ class Emptor(object):
             xmlns = []
         self.xmlns = list(xmlns) or list(self.Xmlns)
         self.debug = debug or self.Debug
+        self.red = red or self.Red
         
         #other
         self.response = None
@@ -774,7 +779,7 @@ class Emptor(object):
             """        
         try:
             
-            with Redirector() as red: #redirect stdout, stderr to string
+            with Redirector() as redstd: #redirect stdout, stderr to string
                 #print "body:\n%s" %  body
                 response = requests.request(url=url,
                                             method=self.hrm,
@@ -784,13 +789,14 @@ class Emptor(object):
                                             cookies=self.cookies,
                                             verify=self.cacp,
                                             cert=self.pkcp,
-                                            auth=auth, ) 
+                                            auth=auth,
+                                            allow_redirects=self.red) 
                 
                 self.response = response
                 if self.debug:
-                    red.seek(0) #go to head of file
+                    redstd.seek(0) #go to head of file
                     trace = ''
-                    for line in red: #strip out raw string escapes and reformat
+                    for line in redstd: #strip out raw string escapes and reformat
                         if line.startswith('send: '):
                             trace = "%sRequest: \n\n%s" % (trace, 
                                 line.lstrip("send: '").rstrip("'\n").decode('string_escape'))

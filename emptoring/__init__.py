@@ -199,7 +199,7 @@ class Emptor(object):
     """ Generic Base Class for HTTP REST Service API Client
         
         Class attributes:
-            Scheme = optional default http request scheme 'http://'
+            Scheme = optional default http request scheme 'http'
             Port = optional default http request port
             Prefix = default url prefix string
             Hrm = default http request method string ('GET', 'PUT', 'POST', etc)
@@ -307,7 +307,7 @@ class Emptor(object):
     #Class attributes are default values that should be overridden by subclasses
     Scheme = 'http' # url request scheme
     Domain =  'localhost' # url request host domain  url netloc is domain:port
-    Port = '80' # url request port
+    Port = '' # url request port
     Prefix = '/' # url path prefix
     Preloads =  ODict() #default data dict preload
     Headers = LODict() # default headers lower cased dict

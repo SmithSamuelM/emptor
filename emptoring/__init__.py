@@ -966,3 +966,13 @@ class Emptory(object):
             emptor.__doc__ = "%s\n%s" % (help, emptor.__doc__)
         
         setattr(self, name, emptor)
+    
+    def _cookify(self, cookies):
+        """ For each emptor in the emptory update the .cookies dict with
+            the cookies dict
+            
+            This is useful for updating a session or authentication cookie for
+            all members of the emptory
+        """
+        for emptor in self._emptors.values():
+            emptor.cookies.update(cookies) 

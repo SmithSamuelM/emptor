@@ -14,7 +14,7 @@ from setuptools import setup, find_packages
 
 setup(
         name='emptoring',
-        version='0.1.5',
+        version='0.1.6',
         install_requires=['simplejson', 'requests', 'pystache', 'lxml'],
         extras_require = { 'python2.6' : ['ordereddict'], 'tests': ['gevent'],},
         packages=find_packages(),      

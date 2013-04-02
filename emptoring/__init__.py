@@ -821,10 +821,10 @@ class Emptor(object):
         
         return self.reaped     
 
-class Emptorage(object):
-    """ Patronage class is a factory to generate a container object instance
-        whose attributes are references to related Patrons. 
-        One Patronage instance provides client interfaces 
+class Emptory(object):
+    """ Emptory class is a factory to generate a container object instance
+        whose attributes are references to a group of related Emptors. 
+        One Emptory instance provides client interfaces 
            to a group of related services
         Attribute Names are derived from roster list
           'name' item in roster list entry becomes attribute reference 
@@ -832,13 +832,13 @@ class Emptorage(object):
         
         Usage:
             roster = [{'name' : 'test', 'suffix' : 'me']
-            patronage = Patronage(roster)
-            reaped = patronage.test()
+            emptory = Emptory(roster)
+            reaped = emptory.test()
          
         If given, the roster entry's help items are combined and prepended to the
-        patronage instance's _helps attribute (not .__doc__)
+        emptory instance's _helps attribute (not .__doc__)
         
-        The patronage's _patrons attribute is a dict of the patrons with names as keys.
+        The emptory's _emptors attribute is a dict of the patrons with names as keys.
     """
     def __init__(self, roster, emptorist=Emptor, **kwa):
         """ Create container group of emptor instances defined by roster

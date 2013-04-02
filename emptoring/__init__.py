@@ -668,7 +668,7 @@ class Emptor(object):
         pargs = self.begetPathArgs(data) or data #use pargs if not empty else use data
         #build request url
         url = "%s://%s%s%s%s" % (self.scheme,
-                               self.domain,
+                               self.domain.format(**pargs),
                                ((':%s' % self.port) if self.port else '' ), 
                                self.prefix.format(**pargs),
                                self.suffix.format(**pargs), )        

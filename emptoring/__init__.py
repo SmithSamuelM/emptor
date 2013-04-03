@@ -356,8 +356,8 @@ class Emptor(object):
               mdp = mold directory path
               pkcp = private key and cert path
               cacp = cert auth path or False if ignore
-              debug = create trace
               red = allow redirects
+              debug = create trace
               
         """
         # optional parameters, 
@@ -608,9 +608,9 @@ class Emptor(object):
             Body is string concated from all string positional arguments.
             Non string positional arguments and keyword arguments are ignored.
             
-            Data is an ordereddict where the items are extracted from the
-            any sequenced duples and/or dicts in the positonal arguments and from
-            the keyword arguments.
+            Data is an ordereddict where the items are extracted from
+            self.preloads, any sequenced duples and/or dicts in the positonal
+            arguments, and from the keyword arguments.
             String positional arguments are ignored.
         """
         body = ''
@@ -868,7 +868,7 @@ class Emptory(object):
                    suffix='', preloads=None, headers=None, 
                    hrm='', hct='',hscs=None, hats=None,
                    creds=None, xmlns=None, mdp='', pkcp='', cacp=False,
-                   debug=False,  red=True):
+                   red=True,  debug=False,  ):
         """ Generate emptor init args for the given entry and init parameters. 
             Parameters
                 scheme = Server URL scheme
@@ -887,8 +887,8 @@ class Emptory(object):
                 mdp = mold directory path
                 pkcp = private key cert path
                 cacp = certificate authority certs path
-                debug = create and save httplib trace
                 red = allow redirects
+                debug = create and save httplib trace
                 
             Special processing of parameters to this function
                 The final instance attributes value will be.
@@ -923,8 +923,8 @@ class Emptory(object):
                 'bkeys' optional
                 'pkcp' optional
                 'cacp' optional
-                'debug' optional
                 'red' optional
+                'debug' optional
                 
                 
                     
@@ -946,8 +946,9 @@ class Emptory(object):
         ia['mdp'] = entry.get('mdp', '') or mdp
         ia['pkcp'] = entry.get('pkcp', '') or pkcp
         ia['cacp'] = entry.get('cacp', False) or cacp
-        ia['debug'] = entry.get('debug', False) or debug
         ia['red'] = entry.get('red', False) or red
+        ia['debug'] = entry.get('debug', False) or debug
+        
         #service specific
         ia['suffix'] = entry.get('suffix', '')
         ia['mold'] = entry.get('mold', '')  

@@ -208,6 +208,7 @@ class Emptor(object):
             Hats = list of response default http accept type strings ('xml', 'json','html', 'text')
             
             Preloads = default request data, dict or list of key, value duples
+            Qkeys = default query arg keys
             Headers = default request headers, dict or list of key, value duples
             Creds = optional default dict with keys name password and domain used for authentication
             Xmlns = optional list of default xml namespace urls that is used when reaping xml content
@@ -309,7 +310,8 @@ class Emptor(object):
     Domain =  'localhost' # url request host domain  url netloc is domain:port
     Port = '' # url request port
     Prefix = '/' # url path prefix
-    Preloads =  ODict() #default data dict preload
+    Preloads =  ODict() #d efault data dict preload
+    Qkeys = [] # list of default query arg keys
     Headers = LODict() # default headers lower cased dict
     Hrm = 'GET' # default request method
     Hct = 'text' # default content type
@@ -425,10 +427,10 @@ class Emptor(object):
             self.reaper = self.reap #use default reaper
         
         self.mold = mold
-                
-        if qkeys is None:
-            qkeys = []        
-        self.qkeys = list(qkeys) #make local copy
+        
+        self.qkeys = list(self.Qkeys) # make local copy of defaults       
+        if qkeys is not None:
+            self.qkeys = list(set(self.qkeys + qkeys)) #merge unique keys
         
         if pkeys is None:
             pkeys = []        
